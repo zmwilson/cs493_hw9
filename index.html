@@ -1,0 +1,46 @@
+<html>
+	<body>
+		<audio id="player" controls>
+		  <source id="song" src="" type="audio/mpeg">
+		Your browser does not support the audio element.
+		</audio>
+		<ul id="myList">
+		</ul>
+	</body>
+	<script>
+		var request = new XMLHttpRequest();
+
+		request.open('GET', 'http://127.0.0.1:5000/', true);
+		request.onload = function () {
+
+		  // Begin accessing JSON data here
+		  var data = JSON.parse(this.response);
+		  console.log(data);
+
+		  if (request.status >= 200 && request.status < 400) {
+		  	for(var key in data) {
+			    var node = document.createElement("LI");                 // Create a <li> node
+				var textnode = document.createTextNode(key);
+				var a = document.createElement("a");
+				a.setAttribute('href', data[key]);         // Create a text node
+				node.appendChild(textnode);
+				node.appendChild(a);                              // Append the text to <li>
+				node.onclick = function() {
+					alert(this.innerText);
+					document.getElementById("song").src = a.href;
+					document.getElementById("player").load();
+				};
+				document.getElementById("myList").appendChild(node);     // Append <li> to <ul> with id="myList"
+			}
+		  } else {
+		    console.log('error');
+		  }
+		}
+
+		request.send();
+
+		function play() {
+			document.getElementById("song").src = this.text();
+		}
+	</script>
+</html>
