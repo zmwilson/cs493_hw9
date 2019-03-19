@@ -10,7 +10,7 @@
 	<script>
 		var request = new XMLHttpRequest();
 
-		request.open('GET', 'http://127.0.0.1:5000/', true);
+		request.open('GET', 'http://ec2-3-83-67-210.compute-1.amazonaws.com/', true);
 		request.onload = function () {
 
 		  // Begin accessing JSON data here
@@ -26,7 +26,6 @@
 				node.appendChild(textnode);
 				node.appendChild(a);                              // Append the text to <li>
 				node.onclick = function() {
-					alert(this.innerText);
 					document.getElementById("song").src = a.href;
 					document.getElementById("player").load();
 				};
